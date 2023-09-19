@@ -3,8 +3,19 @@ fn main() {
 
     if args.len() != 4 {
         args.iter().skip(1).for_each(|arg| {
-            println!("{:x}", arg.parse::<u32>().unwrap());
+            let parsed = arg.parse::<u8>();
+            match parsed {
+                Ok(value) => {
+                    println!("{} -> #{:x}", value, value);
+                }
+                Err(_) => {
+                    println!("Invalid argument: {}", arg);
+                    std::process::exit(1)
+                }
+            }
         });
+
+        std::process::exit(0);
     }
 
     let mut color_code = String::from("#");
@@ -21,4 +32,6 @@ fn main() {
         }
     }
     println!("{}", color_code);
+
+    std::process::exit(0)
 }
